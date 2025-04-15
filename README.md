@@ -1,117 +1,155 @@
-Prueba Técnica Fullstack - OKAM
-Este proyecto es una solución fullstack desarrollada con Next.js 15 (App Router) para el frontend y Express.js con TypeScript para el backend. Utiliza Prisma como ORM y Supabase como base de datos (PostgreSQL). La aplicación permite a los usuarios registrarse, iniciar sesión y gestionar tareas con soporte para borrado lógico y restauración.
 
-Tecnologías utilizadas:
+# Prueba Técnica Fullstack - OKAM
 
-Frontend: Next.js 15, React 19, Tailwind CSS, TypeScript
+Este proyecto es una solución fullstack desarrollada con **Next.js 15 (App Router)** para el frontend y **Express.js** con **TypeScript** para el backend. Utiliza **Prisma** como ORM y **Supabase** como base de datos (PostgreSQL). La aplicación permite a los usuarios registrarse, iniciar sesión y gestionar tareas con soporte para borrado lógico y restauración.
 
-Backend: Express.js, TypeScript
+## Tecnologías utilizadas
 
-ORM: Prisma
+### Frontend:
+- **Next.js 15**
+- **React 19**
+- **Tailwind CSS**
+- **TypeScript**
 
-Base de datos: Supabase (PostgreSQL)
+### Backend:
+- **Express.js**
+- **TypeScript**
 
-Autenticación: JWT (con almacenamiento en cookies)
+### ORM:
+- **Prisma**
 
-Estilos: Tailwind CSS + fuentes de Google (Geist)
+### Base de datos:
+- **Supabase (PostgreSQL)**
 
-        Estructura general del proyecto:
-        
-        /backend
-        
-        src/
-        
-        controllers/
-        
-        middleware/
-        
-        routes/
-        
-        services/
-        
-        types/
-        
-        app.ts
-        
-        prisma/
-        
-        .env
-        
-        tsconfig.json
-        
-        /frontend
-        
-        src/
-        
-        app/
-        
-        components/
-        
-        lib/
-        
-        styles/
-        
-        public/
-        
-        tsconfig.json
+### Autenticación:
+- **JWT** (con almacenamiento en cookies)
 
-Pasos para ejecutar el proyecto:
+### Estilos:
+- **Tailwind CSS** + fuentes de **Google** (Geist)
 
-Clonar el repositorio y acceder a la carpeta raíz del proyecto.
+## Estructura general del proyecto
 
-Configurar y levantar el backend:
+```plaintext
+/backend
+  ├── src/
+  │   ├── controllers/
+  │   ├── middleware/
+  │   ├── routes/
+  │   ├── services/
+  │   ├── types/
+  │   ├── tests/
+  │   ├── utils/
+  │   ├── validations/   
+  │   ├── app.ts
+  │   ├── server.ts
+  │   ├── prisma/
+  │   ├── .env
+  │   └── tsconfig.json
+/frontend
+  ├── src/
+  │   ├── app/
+  │   ├── components/
+  │   ├── lib/
+  │   ├── styles/
+  │   ├── public/
+  │   ├── context/
+  │   └── tsconfig.json
+```
 
-Ingresar a la carpeta backend
+## Pasos para ejecutar el proyecto
 
-Copiar el archivo de entorno: cp .env.example .env
+### 1. Clonar el repositorio y acceder a la carpeta raíz del proyecto.
 
-Instalar dependencias: npm install
+```bash
+git clone https://github.com/MLxFernando/prueba_tecnica_okam.git
+cd backend 
+cd frontend
+```
 
-Ejecutar Prisma: npx prisma generate npx prisma migrate dev --name init
+### 2. Configurar y levantar el backend:
 
-Levantar el servidor: npm run dev
+- Ingresar a la carpeta `backend`
 
-Configurar y levantar el frontend:
+```bash
+cd backend
+```
 
-Ingresar a la carpeta frontend
+- Copiar el archivo de entorno:
 
-Instalar dependencias: npm install
+```bash
+cp .env.example .env
+```
 
-Levantar el servidor de desarrollo: npm run dev
+- Instalar dependencias:
 
-Endpoints disponibles:
+```bash
+npm install
+```
 
-Autenticación:
+- Ejecutar Prisma:
 
-    POST /auth/register
-    
-    POST /auth/login
+```bash
+npx prisma generate
+npx prisma migrate dev --name init
+```
 
-Tareas:
+- Levantar el servidor:
 
-    GET /tasks
-    
-    POST /tasks
-    
-    PUT /tasks/:id
-    
-    DELETE /tasks/:id (soft delete)
-    
-    POST /tasks/:id/restore (restauración de tarea)
+```bash
+npm run dev
+```
 
-Funcionalidades implementadas:
+### 3. Configurar y levantar el frontend:
 
-    Registro e inicio de sesión de usuarios con validación
-    
-    CRUD de tareas por usuario autenticado
-    
-    Soft delete y restauración de tareas
-    
-    Vista separada de tareas activas y eliminadas
-    
-    Estilos adaptables y experiencia de usuario amigable
-    
-    Protección de rutas mediante middleware
-    
-    Logout y eliminación del token de sesión
+- Ingresar a la carpeta `frontend`
+
+```bash
+cd ../frontend
+```
+
+- Instalar dependencias:
+
+```bash
+npm install
+```
+
+- Levantar el servidor de desarrollo:
+
+```bash
+npm run dev
+```
+
+## Endpoints disponibles
+
+### Autenticación:
+
+- `POST /auth/register`: Registrar un nuevo usuario
+- `POST /auth/login`: Iniciar sesión de usuario
+
+### Tareas:
+
+- `GET /tasks`: Obtener todas las tareas del usuario autenticado
+- `POST /tasks`: Crear una nueva tarea
+- `PUT /tasks/:id`: Actualizar una tarea existente
+- `DELETE /tasks/:id`: Eliminar (soft delete) una tarea
+- `POST /tasks/:id/restore`: Restaurar una tarea eliminada
+
+## Funcionalidades implementadas
+
+- Registro e inicio de sesión de usuarios con validación.
+- CRUD de tareas por usuario autenticado.
+- Soft delete y restauración de tareas.
+- Vista separada de tareas activas y eliminadas.
+- Estilos adaptables y experiencia de usuario amigable.
+- Protección de rutas mediante middleware.
+- Logout y eliminación del token de sesión.
+
+## Instalación y Configuración
+
+Para la correcta ejecución de la aplicación, asegúrate de tener las siguientes dependencias instaladas:
+
+- Node.js (versión 16 o superior)
+- PostgreSQL
+- Prisma CLI
+- Supabase (o cualquier configuración de PostgreSQL compatible)
 

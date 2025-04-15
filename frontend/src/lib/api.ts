@@ -1,102 +1,34 @@
-const API_BASE_URL = 'http://localhost:3001/api'; 
+import axios from 'axios'
 
-export const loginUser = async (email: string, password: string) => {
-  const res = await fetch(`${API_BASE_URL}/auth/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ email, password })
-  });
+export const api = axios.create({
+  baseURL: 'http://localhost:4000/api',
+})
 
-  if (!res.ok) {
-    throw new Error('Credenciales inválidas');
+api.interceptors.request.use((config) => {
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
   }
+  return config
+})
 
-  return res.json();
-};
+// ✅ Función para login
+export const login = async (email: string, password: string) => {
+  const res = await api.post('/auth/login', { email, password })
+  const { token, user } = res.data
+  localStorage.setItem('token', token)
+  return user
+}
 
-export const registerUser = async (email: string, password: string) => {
-  const res = await fetch(`${API_BASE_URL}/auth/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ email, password })
-  });
+// ✅ Función para registro
+export const register = async (email: string, password: string) => {
+  const res = await api.post('/auth/register', { email, password })
+  const { token, user } = res.data
+  localStorage.setItem('token', token)
+  return user
+}
 
-  if (!res.ok) {
-    throw new Error('No se pudo registrar');
-  }
-
-  return res.json();
-};
-
-export const fetchTasks = async (token: string) => {
-    const res = await fetch(`${API_BASE_URL}/tasks`, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-  
-    if (!res.ok) throw new Error('No autorizado');
-    return res.json();
-  };
-  
-  export const createTask = async (
-    token: string,
-    data: { title: string; description: string; dueDate: string }
-  ) => {
-    const res = await fetch(`${API_BASE_URL}/tasks`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-  
-    if (!res.ok) throw new Error('Error al crear la tarea');
-    return res.json();
-  };
-  
-  // Marcar como completada 
-export const toggleTaskCompleted = async (token: string, taskId: string, completed: boolean) => {
-    const res = await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ completed })
-    });
-  
-    if (!res.ok) throw new Error('No se pudo actualizar la tarea');
-    return res.json();
-  };
-  
-  // Eliminar (soft delete)
-  export const deleteTask = async (token: string, taskId: string) => {
-    const res = await fetch(`${API_BASE_URL}/tasks/${taskId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-  
-    if (!res.ok) throw new Error('No se pudo eliminar la tarea');
-  };
-  
-  // Restaurar tarea
-  export const restoreTask = async (token: string, taskId: string) => {
-    const res = await fetch(`${API_BASE_URL}/tasks/${taskId}/restore`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
-  
-    if (!res.ok) throw new Error('No se pudo restaurar la tarea');
-    return res.json();
-  };
-  
+// ✅ Función para cerrar sesión
+export const logout = () => {
+  localStorage.removeItem('token')
+}

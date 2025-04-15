@@ -1,70 +1,46 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useForm } from 'react-hook-form'
+import { useAuth } from '@/context/authContext'
+import Link from 'next/link'
 
 export default function RegisterPage() {
-  const router = useRouter();
-  const [form, setForm] = useState({ email: '', password: '' });
+  const { register: registrar } = useAuth()
+  const { register, handleSubmit } = useForm()
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const res = await fetch('http://localhost:3001/auth/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    });
-
-    if (res.ok) {
-      router.push('/login');
-    } else {
-      alert('Error al registrarse');
-    }
-  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = (data: any) => {
+    registrar(data.email, data.password)
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded shadow-md w-full max-w-md space-y-4"
-      >
-        <h1 className="text-2xl font-bold text-gray-800 text-center">Crear cuenta</h1>
+    <div className="max-w-md mx-auto py-10">
+      <h1 className="text-2xl font-bold mb-4">Crear cuenta</h1>
 
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <input
+          {...register('email')}
           type="email"
-          name="email"
           placeholder="Correo"
-          onChange={handleChange}
-          value={form.email}
-          className="w-full border border-gray-300 px-4 py-2 rounded text-gray-800 placeholder-gray-400"
-          required
+          className="w-full p-2 border rounded"
         />
-
         <input
+          {...register('password')}
           type="password"
-          name="password"
           placeholder="Contraseña"
-          onChange={handleChange}
-          value={form.password}
-          className="w-full border border-gray-300 px-4 py-2 rounded text-gray-800 placeholder-gray-400"
-          required
+          className="w-full p-2 border rounded"
         />
-
-        <button
-          type="submit"
-          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
-        >
+        <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded w-full">
           Registrarse
         </button>
-
-        <p className="text-center text-sm">
-          ¿Ya tienes cuenta? <a href="/login" className="text-blue-600 underline">Inicia sesión</a>
-        </p>
       </form>
+
+      <p className="mt-4 text-center text-sm text-gray-600">
+        ¿Ya tienes cuenta?{' '}
+        <Link href="/login" className="text-blue-600 hover:underline">
+          Inicia sesión aquí
+        </Link>
+      </p>
     </div>
-  );
+  )
 }
