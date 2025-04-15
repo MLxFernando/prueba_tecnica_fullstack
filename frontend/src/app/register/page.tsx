@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
   const [form, setForm] = useState({ email: '', password: '' });
 
@@ -13,18 +13,16 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:3001/api/login', {
+    const res = await fetch('http://localhost:3001/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(form),
     });
 
     if (res.ok) {
-      const data = await res.json();
-      localStorage.setItem('token', data.token);
-      router.push('/dashboard');
+      router.push('/login');
     } else {
-      alert('Credenciales inválidas');
+      alert('Error al registrarse');
     }
   };
 
@@ -34,7 +32,7 @@ export default function LoginPage() {
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded shadow-md w-full max-w-md space-y-4"
       >
-        <h1 className="text-2xl font-bold text-gray-800 text-center">Iniciar sesión</h1>
+        <h1 className="text-2xl font-bold text-gray-800 text-center">Crear cuenta</h1>
 
         <input
           type="email"
@@ -58,13 +56,13 @@ export default function LoginPage() {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700"
         >
-          Entrar
+          Registrarse
         </button>
 
-        <p className="text-center text-gray-800 text-sm">
-          ¿No tienes cuenta? <a href="/register" className="text-blue-600 underline">Regístrate</a>
+        <p className="text-center text-sm">
+          ¿Ya tienes cuenta? <a href="/login" className="text-blue-600 underline">Inicia sesión</a>
         </p>
       </form>
     </div>
