@@ -5,9 +5,9 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
+    "noEmit": true, //true false
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "esnext", //esnext CommonJS
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
