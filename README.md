@@ -1,7 +1,16 @@
 
-# Prueba Técnica Fullstack - OKAM
+# Prueba Técnica Fullstack
 
 Este proyecto es una solución fullstack desarrollada con **Next.js 15 (App Router)** para el frontend y **Express.js** con **TypeScript** para el backend. Utiliza **Prisma** como ORM y **Supabase** como base de datos (PostgreSQL). La aplicación permite a los usuarios registrarse, iniciar sesión y gestionar tareas con soporte para borrado lógico y restauración.
+
+## Instalación y Configuración
+
+Para la correcta ejecución de la aplicación, asegúrate de tener las siguientes dependencias instaladas:
+
+- Node.js (versión 16 o superior)
+- PostgreSQL
+- Prisma CLI
+- Supabase (o cualquier configuración de PostgreSQL compatible)
 
 ## Tecnologías utilizadas
 
@@ -61,7 +70,7 @@ Este proyecto es una solución fullstack desarrollada con **Next.js 15 (App Rout
 ### 1. Clonar el repositorio y acceder a la carpeta raíz del proyecto.
 
 ```bash
-git clone https://github.com/MLxFernando/prueba_tecnica_okam.git
+git clone https://github.com/MLxFernando/prueba_tecnica_fullstack.git
 cd backend 
 cd frontend
 ```
@@ -144,12 +153,5 @@ npm run dev
 - Protección de rutas mediante middleware.
 - Logout y eliminación del token de sesión.
 
-## Instalación y Configuración
 
-Para la correcta ejecución de la aplicación, asegúrate de tener las siguientes dependencias instaladas:
-
-- Node.js (versión 16 o superior)
-- PostgreSQL
-- Prisma CLI
-- Supabase (o cualquier configuración de PostgreSQL compatible)
 
